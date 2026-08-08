@@ -1,0 +1,25 @@
+version: v1
+name: demo_1
+pipeline:
+  03565e4c-7204-4905-b7dd-5028fef21d0c:
+    tasks:
+      d6677c14-0628-41ef-8231-18e2b3bb45bf:
+        integration: RIVERY
+        integration_job: RIVERY_RUN_RIVER
+        parameters:
+          river_id: 6a77756da1607b53d8df6217
+        depends_on: []
+        name: Run My River
+        connection: rivery_28791
+    depends_on: []
+    name: group
+webhook:
+  enabled: false
+alerts:
+- name: notify_me
+  statuses:
+  - SUCCEEDED
+  - FAILED
+  destinations:
+  - integration: EMAIL
+    destination: trm214@gmail.com
