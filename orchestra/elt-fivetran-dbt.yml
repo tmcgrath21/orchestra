@@ -43,10 +43,6 @@ pipeline:
         name: alert on fail
     depends_on:
     - 31eef418-1320-4761-a097-3842e7a24699
-    - 31eef418-1320-4761-a097-3842e7a24699
-    condition: ${{ task_groups['31eef418-1320-4761-a097-3842e7a24699'].any().status
-      == 'FAILED' and task_groups['31eef418-1320-4761-a097-3842e7a24699'].all().status
-      in ['SUCCEEDED', 'WARNING'] }}
     name: group
   5af8970d-6dcc-4b77-a24f-04c89c974ff3:
     tasks:
@@ -61,6 +57,10 @@ pipeline:
     depends_on:
     - 31eef418-1320-4761-a097-3842e7a24699
     name: group
+schedule:
+- name: Daily at 11am
+  cron: 0 11 ? * * *
+  timezone: Europe/London
 webhook:
   enabled: false
 alerts:
