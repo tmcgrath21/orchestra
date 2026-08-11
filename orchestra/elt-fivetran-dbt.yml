@@ -1,0 +1,42 @@
+version: v1
+name: elt-fivetran-dbt
+pipeline:
+  1174941c-1ad3-4107-9cbb-5ae7aa6bb97d:
+    tasks:
+      cf71f6db-8458-4113-b080-59fdbe3fb513:
+        integration: FIVETRAN
+        integration_job: FIVETRAN_SYNC_ALL
+        parameters:
+          connector_id: mysteries_spray
+          resync: false
+        depends_on: []
+        name: raw_jaffle_data
+        connection: fivetran_47494
+    depends_on: []
+    name: group
+  31eef418-1320-4761-a097-3842e7a24699:
+    tasks:
+      afc463d0-3421-47b6-8282-a41ed63a7a76:
+        integration: DBT
+        integration_job: DBT_RUNJOB
+        parameters:
+          job_id: '70506183136904'
+        depends_on: []
+        name: run dbt build
+        connection: dbt_cloud_71587
+        operation_metadata:
+          97f65602-c786-4cbf-a45d-57cb98994ebd:
+            integration: SNOWFLAKE
+            connection: snowflake_79876
+    depends_on:
+    - 1174941c-1ad3-4107-9cbb-5ae7aa6bb97d
+    name: group
+webhook:
+  enabled: false
+alerts:
+- name: alert_me
+  statuses:
+  - ANY_COMPLETED
+  destinations:
+  - integration: EMAIL
+    destination: trm214@gmail.com
