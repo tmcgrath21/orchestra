@@ -31,16 +31,33 @@ pipeline:
     depends_on:
     - 1174941c-1ad3-4107-9cbb-5ae7aa6bb97d
     name: group
-  fafece2f-6968-4d33-a9f0-58060395538c:
+  b08511e2-03c2-49e4-9e3c-c27ec258d836:
     tasks:
-      8853802d-e694-415f-b2fb-fed1e77484c3:
+      589173cb-e8e4-4586-84da-339fb910ec0d:
         integration: SLACK
         integration_job: SEND_SLACK_MESSAGE
         parameters:
           channel_name: pipeline_updates
-          text: run forrest run
+          text: FAILED
         depends_on: []
-        name: Slack
+        name: alert on fail
+    depends_on:
+    - 31eef418-1320-4761-a097-3842e7a24699
+    - 31eef418-1320-4761-a097-3842e7a24699
+    condition: ${{ task_groups['31eef418-1320-4761-a097-3842e7a24699'].any().status
+      == 'FAILED' and task_groups['31eef418-1320-4761-a097-3842e7a24699'].all().status
+      in ['SUCCEEDED', 'WARNING'] }}
+    name: group
+  5af8970d-6dcc-4b77-a24f-04c89c974ff3:
+    tasks:
+      c1567491-e607-488b-a577-08b14b5d9763:
+        integration: SLACK
+        integration_job: SEND_SLACK_MESSAGE
+        parameters:
+          channel_name: pipeline_updates
+          text: SUCCESS
+        depends_on: []
+        name: ALERT ON SUCCESS
     depends_on:
     - 31eef418-1320-4761-a097-3842e7a24699
     name: group
