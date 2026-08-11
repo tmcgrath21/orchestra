@@ -1,5 +1,5 @@
 version: v1
-name: demo_1
+name: rivery_run
 pipeline:
   03565e4c-7204-4905-b7dd-5028fef21d0c:
     tasks:
