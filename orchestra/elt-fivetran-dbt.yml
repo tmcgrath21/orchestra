@@ -31,6 +31,19 @@ pipeline:
     depends_on:
     - 1174941c-1ad3-4107-9cbb-5ae7aa6bb97d
     name: group
+  fafece2f-6968-4d33-a9f0-58060395538c:
+    tasks:
+      8853802d-e694-415f-b2fb-fed1e77484c3:
+        integration: SLACK
+        integration_job: SEND_SLACK_MESSAGE
+        parameters:
+          channel_name: pipeline_updates
+          text: run forrest run
+        depends_on: []
+        name: Slack
+    depends_on:
+    - 31eef418-1320-4761-a097-3842e7a24699
+    name: group
 webhook:
   enabled: false
 alerts:
